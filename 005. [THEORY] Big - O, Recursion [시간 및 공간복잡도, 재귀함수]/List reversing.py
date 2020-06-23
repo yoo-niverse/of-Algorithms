@@ -14,6 +14,7 @@ some_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 some_list = flip(some_list)
 print(some_list)
 
+
 ''' ------ 동작 설명 ------
 1. 파라미터로 뒤집는 연산을 하기 위한 list를 전달받는다.
 2. 파라미터의 길이가 1이나 0인 경우에는 수행이 불필요한 BASE CASE이므로 파라미터를 그대로 return 한다.
