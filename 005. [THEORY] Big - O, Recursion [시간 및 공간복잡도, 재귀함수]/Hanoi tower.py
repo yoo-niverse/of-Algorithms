@@ -21,6 +21,10 @@ def hanoi(num_disks, start_peg, end_peg):
         return None
             # BASE CASE : disk가 0개인 경우, None을 반환하며 종료
 
+    if num_disks > 1:
+        return (???)
+            # disk가 1개 이상인 경우 : 어떻게 디스크의 크기를 구분하여 이동시킬 것인가?
+
     pegs[start_peg-1] -= 1
     pegs[end_peg-1] += 1
     move_disk(num_disks, start_peg, end_peg)
