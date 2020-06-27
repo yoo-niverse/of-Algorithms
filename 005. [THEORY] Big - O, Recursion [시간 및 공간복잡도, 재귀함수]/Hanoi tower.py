@@ -3,40 +3,45 @@ def move_disk(disk_num, start_peg, end_peg):
     print("%d번 원판을 %d번 기둥에서 %d번 기둥으로 이동" % (disk_num, start_peg, end_peg))
 
 def hanoi(num_disks, start_peg, end_peg):
-    pegs = [] # 기둥에 존재하는 disk를 저장하기 위한 list
-    for i in range(start_peg, end_peg+1):
-        pegs.append(0)
-            # end_peg의 값에 따라 기둥별 리스트 공간을 추가
-
-    pegs[start_peg-1] = num_disks
-        # 첫번째 기둥에는 파라미터로 받은 num_disks 즉, disk를 전체 저장
-
-    if num_disks == 1:
-        pegs[start_peg-1] = 0
-        pegs[end_peg-1] = 1
-        return move_disk(1, start_peg, end_peg)
-            # BASE CASE : disk가 1개인 경우, 1번 기둥에서 마지막 기둥(end_peg)으로 바로 이동 후 종료
 
     if num_disks == 0:
-        return None
-            # BASE CASE : disk가 0개인 경우, None을 반환하며 종료
+        return
+            # 원판의 개수가 0개일 경우 동작을 수행할 수 없으므로 아무것도 반환하지 않는다.
+    else:
+        other_peg = 6 - (start_peg + end_peg)
+            # 그 외의 경우에는 3개의 기둥 중 start_peg과 end_peg을 이용하여 나머지 기둥을 계산한다.
+            # 각 기둥에 순서대로 1, 2, 3번을 부여하면 세 기둥의 합은 6이므로 이를 이용한다.
 
-    if num_disks > 1:
-        return (???)
-            # disk가 1개 이상인 경우 : 어떻게 디스크의 크기를 구분하여 이동시킬 것인가?
-
-    pegs[start_peg-1] -= 1
-    pegs[end_peg-1] += 1
+    hanoi(num_disks-1, start_peg, other_peg)
+        # 가장 크기가 큰 원판을 제외하고 시작 기둥에서 나머지 기둥으로 이동한다.
     move_disk(num_disks, start_peg, end_peg)
-        # 가장 큰 원판 마지막 기둥으로 이동 / 마지막에 처리해야함(작은 원판부터 처리)
-
-    # 원판의 크기를 어떻게 식별해야할까?
-
-
-    print(pegs)
-
-
+        # 가장 큰 원판을 시작 기둥에서 목표 기둥으로 옮긴다.
+    hanoi(num_disks-1, other_peg, end_peg)
+        # 가장 큰 원판을 제외하고 나머지 원판을 목표 기둥으로 옮긴다.
 
 # 테스트 코드
 hanoi(3, 1, 3)
-hanoi(1, 1, 9)
+
+
+''' ------ 동작 설명 ------
+1. 원판의 개수와 시작 기둥, 목표 기둥의 값을 파라미터로 전달 받는다.
+2. 원판의 개수가 0인 경우에는 BASE CASE로 아무것도 반환하지 않으며 수행을 종료한다.
+3. 그 외의 경우에는 시작 기둥, 목표 기둥의 값으로 나머지 기둥을 계산한다.
+4. 가장 큰 원판을 제외한 원판들을 시작 기둥에서 나머지 기둥으로 옮긴다.
+5. 가장 큰 원판을 시작 기둥에서 목표 기둥으로 옮긴다.
+6. 나머지 원판들을 나머지 기둥에서 목표 기둥으로 옮긴다.
+
+ ------ 오래 걸린 이유 ------
+ 지금까지의 문제 중 가장 오랜 시간이 걸렸다. 문제 자체가 어렵기도 했지만, 문제해결을 잘못된 방법으로 하고 있었다.
+ 나는 원판의 개수에 따른 이동과정을 표로 하나하나 그리며 규칙을 찾으려고 했다.
+ 그러나 이동횟수외에 이렇다할 규칙을 찾아내지는 못했다.
+ 
+ 그래도 BASE CASE, RECURSIVE CASE에 대해서 구상은 성공적으로 했다.
+ 이번에도 구현에 오랜시간이 걸려서 한참을 고민하다 결국 해설을 보았는데 허탈할 정도로 코드가 짧았다.
+ 내가 오래 걸렸던 이유는 재귀를 어떻게 사용할지 고민하며 리스트나 문자열을 이용하여
+ 실제로 원판이 이동되는 과정을 모두 구현하려 했기 때문인 것 같다.
+ 
+ 문제의 의도는 move_disk 함수를 이용하여 그 과정만 텍스트로 표시하는 것이었는데
+ 나는 실제로 원판의 위치가 변하도록 만드는데 집중하느라 너무 오랜 시간이 걸린데다 해결도 못했다.
+ 
+ [문제를 직관적으로 보고 쉽게 해결하는 능력을 기를 필요가 있겠다.]'''
