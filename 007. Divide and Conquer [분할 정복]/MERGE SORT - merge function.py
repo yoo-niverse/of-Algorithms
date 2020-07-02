@@ -15,12 +15,20 @@ def merge(list1, list2):
     while (i < len(list1)) and (j < len(list2)):
         # i 그리고 j가 list1, list2의 길이보다 작은 동안 반복 수행
         if list1[i] < list2[j]:
-           sorted_list.append(list1[i])
-           i += 1
+            if list1[i] in sorted_list:
+                continue
+
+            else:
+                sorted_list.append(list1[i])
+                i += 1
             # list2의 요소가 더 크다면, list1의 요소를 sorted_list에 삽입하고, list1의 다음 index와 비교한다.
         else:
-           sorted_list.append(list2[j])
-           j += 1
+            if list2[j] in sorted_list:
+                continue
+
+            else:
+                sorted_list.append(list2[j])
+                j += 1
             # list1의 요소가 더 크다면, list2의 요소를 sorted_list에 삽입하고, list2의 다음 index와 비교한다.
 
     if i == len(list1):
