@@ -15,20 +15,12 @@ def merge(list1, list2):
     while (i < len(list1)) and (j < len(list2)):
         # i 그리고 j가 list1, list2의 길이보다 작은 동안 반복 수행
         if list1[i] < list2[j]:
-            if list1[i] in sorted_list:
-                continue
-
-            else:
-                sorted_list.append(list1[i])
-                i += 1
+            sorted_list.append(list1[i])
+            i += 1
             # list2의 요소가 더 크다면, list1의 요소를 sorted_list에 삽입하고, list1의 다음 index와 비교한다.
         else:
-            if list2[j] in sorted_list:
-                continue
-
-            else:
-                sorted_list.append(list2[j])
-                j += 1
+            sorted_list.append(list2[j])
+            j += 1
             # list1의 요소가 더 크다면, list2의 요소를 sorted_list에 삽입하고, list2의 다음 index와 비교한다.
 
     if i == len(list1):
@@ -41,12 +33,12 @@ def merge(list1, list2):
     return sorted_list
 
 # 테스트
-print(merge([1],[]))
+'''print(merge([1],[]))
 print(merge([],[1]))
 print(merge([2],[1]))
 print(merge([1, 2, 3, 4],[5, 6, 7, 8]))
 print(merge([5, 6, 7, 8],[1, 2, 3, 4]))
-print(merge([4, 7, 8, 9],[1, 3, 6, 10]))
+print(merge([4, 7, 8, 9],[1, 3, 6, 10]))'''
 
 ''' ------ 동작 설명 ------
 1. 병합정렬을 수행하기 위한 파라미터로 list1, list2를 받는다.
