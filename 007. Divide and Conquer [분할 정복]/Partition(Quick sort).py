@@ -3,23 +3,20 @@ def swap_elements(my_list, index1, index2):
     tmp = my_list[index1]
     my_list[index1] = my_list[index2]
     my_list[index2] = tmp
+    return my_list
 
 # 퀵 정렬에서 사용되는 partition 함수
 def partition(my_list, start, end):
     # 코드를 작성하세요.
     i = b = start
-    p = end
+    p = my_list[end]
 
-    if len(my_list) == 3 and my_list[p] > my_list[p-1] and my_list[p] < my_list[p+1]:
-        return my_list
   # BASE CASE를 어떻게 코드로 표현할까?
-    while i < p:
-        if my_list[i] > p:
-            i += 1
-        else :
-            swap_elements(my_list, b, i)
+    while i < len(my_list)-1:
+        if p > my_list[i]:
             b += 1
-            i += 1
+        i += 1
+    my_list = swap_elements(my_list, b, end)
 
     swap_elements(my_list, b, p)
     partition(my_list, 0, b-1)
