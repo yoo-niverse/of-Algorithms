@@ -12,16 +12,16 @@ def partition(my_list, start, end):
     p = my_list[end]
 
   # BASE CASE를 어떻게 코드로 표현할까?
-    while i < len(my_list)-1:
-        if p > my_list[i]:
-            b += 1
+    if p < my_list[i]:
         i += 1
-    my_list = swap_elements(my_list, b, end)
+    elif p > my_list[i]:
+        swap_elements(my_list, i, b)
+        i += 1
+        b += 1
 
-    swap_elements(my_list, b, p)
-    partition(my_list, 0, b-1)
-    partition(my_list, b+1, i)
-    return p
+    if i == end:
+        swap_elements(my_list, b, p)
+        return b
 
 
 # 테스트 1
