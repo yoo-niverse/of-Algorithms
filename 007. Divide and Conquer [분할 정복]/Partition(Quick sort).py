@@ -7,22 +7,29 @@ def swap_elements(my_list, index1, index2):
 
 # 퀵 정렬에서 사용되는 partition 함수
 def partition(my_list, start, end):
+    if start == end:
+        return my_list
+
     # 코드를 작성하세요.
     i = b = start
+
+    # b가 자꾸 초기화되어서 그거만 해결하면 될거 같은데
     p = my_list[end]
 
   # BASE CASE를 어떻게 코드로 표현할까?
+
     if p < my_list[i]:
         i += 1
     elif p > my_list[i]:
-        swap_elements(my_list, i, b)
+        my_list = swap_elements(my_list, i, b)
         i += 1
         b += 1
 
     if i == end:
-        swap_elements(my_list, b, p)
+        my_list = swap_elements(my_list, p, b)
         return b
-
+    else:
+        partition(my_list, i, end)
 
 # 테스트 1
 list1 = [4, 3, 6, 2, 7, 1, 5]
