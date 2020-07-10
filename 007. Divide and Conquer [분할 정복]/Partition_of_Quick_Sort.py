@@ -15,7 +15,7 @@ def partition(my_list, start, end):
         # start는 정렬을 시작할 index, b는 big 그룹의 시작 index, i는 unknown 그룹의 시작 index
     p = my_list[end]
         # 기준 p(pivot)에는 list의 가장 마지막 요소를 저장
-    while i < (end - start):
+    while i < len(my_list)-1:
         if p <= my_list[i]:
             i += 1
                 # 기준 p보다 현재 위치의 요소값이 크다면, unknown 그룹의 index(i)만 1 증가
