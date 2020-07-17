@@ -12,7 +12,7 @@ def sublist_max(profits):
         #max_list = []
         for i in range(len(profits)-1):
             tmp = 0
-            for j in range(i, len(profits)-1):
+            for j in range(i, len(profits)):
                 tmp += profits[j]
                     # tmp에 i부터 j까지 요소의 합을 저장
                 if tmp > amount:
@@ -20,7 +20,7 @@ def sublist_max(profits):
                         # tmp의 값이 amount보다 커지면 값을 update
                     #max_list = profits[i:j+1]
 
-    return amount
+        return amount
 
 
 # 테스트
