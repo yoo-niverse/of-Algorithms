@@ -1,17 +1,36 @@
-def maxim(profits):
-    tmp = profits[0]
-    for prof in profits:
-        if tmp < tmp + prof:
-            tmp += prof
+''' 최대 수익구간의 값을 분할정복 방식으로 해결 '''
+def maxim(profits, start, end):
+        # maxim 함수는 가운데 구간에서의 최대 수익을 계산하기 위한 함수
+    mid = (start + end) // 2
 
-    return tmp
+    leftsum = 0
+    leftmax = profits[mid]
+
+    for i in range(mid,start-1,-1):
+        leftsum += profits[i]
+        leftmax = max(leftmax, leftsum)
+
+    rightsum = 0
+    rightmax = profits[mid+1]
+
+    for j in range(mid+1, end+1):
+        rightsum += profits[j]
+        rightmax = max(rightmax, rightsum)
+
+    return leftmax + rightmax
 
 def sublist_max(profits, start, end):
     if end - start <= 1:
         return profits[end]
 
-    maxim(profits, )
+    mid = (start+end) // 2
+    left = sublist_max(profits, start, mid)
+    right = sublist_max(profits, mid+1, end)
+        # 문제를 분할하여 오른쪽과 왼쪽 영역으로 나누어 재귀호출
+    middle = maxim(profits, start, end)
+        # maxim 함수를 이용하여 중간 구간에서의 최대 수익 계산
 
+    return max(left, right, middle)
 
 # 테스트
 list1 = [-2, -3, 4, -1, -2, 1, 5, -3]
