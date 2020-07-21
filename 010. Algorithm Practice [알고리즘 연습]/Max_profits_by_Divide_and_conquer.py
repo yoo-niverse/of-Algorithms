@@ -1,10 +1,16 @@
-def
+def maxim(profits):
+    tmp = profits[0]
+    for prof in profits:
+        if tmp < tmp + prof:
+            tmp += prof
+
+    return tmp
 
 def sublist_max(profits, start, end):
     if end - start <= 1:
         return profits[end]
 
-        
+    maxim(profits, )
 
 
 # 테스트
