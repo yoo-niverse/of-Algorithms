@@ -1,4 +1,4 @@
-''' Brute Force 방식을 이용하여 리스트에서의 최대합을 return '''
+''' Brute Force 방식을 이용하여 리스트에서의 최대합을 return (시간 복잡도 : O(n^2)) '''
 def sublist_max(profits):
 
     if len(profits) == 1:
