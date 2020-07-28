@@ -1,24 +1,73 @@
 ''' Brute Force 챕터에서 작성했던 코드의 시간복잡도를 O(n^2) 미만으로 단축한 코드 '''
 def trapping_rain(buildings):
-    amount_water = []                  # 각 인덱스별 빗물의 양을 저장하기 위한 리스트
-    mid = len(buildings) // 2          # 리스트 인덱스의 중간값을 계산
-    left = max(buildings[:mid])        # left 변수에 중간을 기준으로 왼쪽에서 가장 큰 값을 저장
-    right = max(buildings[mid+1:])     # right 변수에 중간을 기준으로 오른쪽에서 가장 큰 값을 저장
+    total_height = 0 # 총 갇히는 비의 양을 담을 변수
+    n = len(buildings)
 
-    for i in range(1, len(buildings)):
-        if buildings[i] == left or buildings[i] == right:
-            continue
-                # i번째 요소의 값이 가장 큰 좌측 또는 우측의 값이라면 pass
-        else:
+    # 각각 왼쪽 오른쪽 최대값 리스트 정의
+    left_list = [0] * n
+    right_list = [0] * n
 
-            if left > right:
-                amount_water.append(right - buildings[i])
-            else:
-                amount_water.append(left - buildings[i])
+    # buildings 리스트 각 인덱스 별로 왼쪽으로의 최댓값을 저장한다
+    left_list[0] = buildings[0]
+    for i in range(1, n):
+        left_list[i] = max(left_list[i - 1], buildings[i])
 
-    return (sum(amount_water))
+    # buildings 리스트 각 인덱스 별로 오른쪽으로의 최댓값을 저장한다
+    right_list[-1] = buildings[-1]
+    for i in range(n - 2, -1, -1):
+        right_list[i] = max(right_list[i + 1], buildings[i])
 
+    # 저장한 값들을 이용해서 총 갇히는 비의 양을 계산한다
+    for i in range(n):
+        # 현재 인덱스에 빗물이 담길 수 있는 높이
+        upper_bound = min(right_list[i], left_list[i])
+
+        # 현재 인덱스에 담기는 빗물의 양을 계산
+        # 만약 upper_bound가 현재 인덱스 건물보다 높지 않다면, 현재 인덱스에 담기는 빗물은 0
+        total_height += max(0, upper_bound - buildings[i])
+
+    return total_height
 
 print(trapping_rain([3, 0, 0, 2, 0, 4]))
 print(trapping_rain([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))
-    # 이와 같은 경우에서 1번 인덱스와 3번 인덱스 사이 빗물의 양이 저장되지 않는 것은 어떻게 해결?
+
+
+''' ------ 시간복잡도를 줄일 때 참고할 것 ------
+    예를 들어 O(n^2)을 O(n)으로 줄인다고 할때, 반드시 반복문을 하나만 사용해야할 필요는 없다.
+    간단히 설명하면 for문 내에 for문이 또 들어가서 2중 반복문이 된 경우 시간복잡도가 O(n^2)이 되는데,
+    이 각각의 for문을 분리하여 O(n) + O(n) = O(2n)으로 만드는 것도 하나의 방법이다.
+    O(2n) = O(n)이기 때문이다.
+    
+    이 알고리즘을 예로 설명하면
+    Brute Force 방식에서는 for문 내에 max 메소드가 들어가 있어 시간복잡도를 증가시켰는데,
+    이를 개선하기 위한 방법으로 for문에 n개 미만의 리스트를 탐색하는 max만 넣어 두개의 반복문으로 각각 만들 수도 있다.
+    
+    <Brute Force 방식을 적용, 시간복잡도가 O(n^2)인 상황 : 반복문에 max문 사용>
+     for i in range(1, len(buildings)-1):
+        l_max = max(buildings[:i])
+            # 현재 index 기준 왼쪽에서 가장 큰 건물의 높이 저장
+        r_max = max(buildings[i:])
+            # 현재 index 기준 오른쪽에서 가장 큰 건물의 높이 저장
+
+        sum += max(0, min(l_max, r_max) - buildings[i])
+    
+    
+    <O(n)으로 시간복잡도를 감소시킨 상황 : 반복문 3개 사용>
+    # buildings 리스트 각 인덱스 별로 왼쪽으로의 최댓값을 저장한다
+    left_list[0] = buildings[0]
+    for i in range(1, n):
+        left_list[i] = max(left_list[i - 1], buildings[i])
+                
+    # buildings 리스트 각 인덱스 별로 오른쪽으로의 최댓값을 저장한다
+    right_list[-1] = buildings[-1]
+    for i in range(n - 2, -1, -1):
+        right_list[i] = max(right_list[i + 1], buildings[i])
+
+    # 저장한 값들을 이용해서 총 갇히는 비의 양을 계산한다
+    for i in range(n):
+        # 현재 인덱스에 빗물이 담길 수 있는 높이
+        upper_bound = min(right_list[i], left_list[i])
+
+ 
+    
+    '''
